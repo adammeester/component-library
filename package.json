@@ -1,14 +1,24 @@
 {
-  "name": "component-library",
+  "name": "@adammeester/component-library",
+  "description": "Adam Meester's component library",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "start": "storybook dev -p 6006",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "version:patch": "npm version patch && git push && git push --tags",
+    "version:minor": "npm version minor && git push && git push --tags",
+    "version:major": "npm version major && git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adammeester/component-library.git"
+  },
+  "publishConfig": {
+    "@adammeester:registry": "https://npm.pkg.github.com"
   },
   "eslintConfig": {
     "extends": [
