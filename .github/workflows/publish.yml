@@ -30,7 +30,7 @@ jobs:
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
       - name: Build
-        run: npm run build:esm
+        run: npm run build
       - name: Publish from main
         run: npm publish
         if: github.ref == 'refs/heads/main'
@@ -43,8 +43,8 @@ jobs:
         working-directory: 'dist'
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      - name: Build for NextJS
-        run: npm run build:nextjs
+      # - name: Build for NextJS
+      #   run: npm run build:nextjs
       - name: Publish from main
         run: npm publish
         if: github.ref == 'refs/heads/main'
