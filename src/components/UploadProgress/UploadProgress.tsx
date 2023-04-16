@@ -1,8 +1,8 @@
 import React from 'react';
-import { theme } from '@/theme/Theme.css';
 import { PulseLoader } from 'react-spinners';
 import { styles } from './UploadProgress.css';
-import { classNames } from '@/components/utils/classNames';
+import { theme } from '../../theme/Theme.css';
+import { classNames } from '../../utils/classNames';
 
 export type UploadProgressProps = {
   progress: number;

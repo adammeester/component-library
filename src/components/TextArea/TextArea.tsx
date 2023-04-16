@@ -1,6 +1,6 @@
-import { classNames } from '@/components/utils/classNames';
 import React from 'react';
 import { styles } from './TextArea.css';
+import { classNames } from '../../utils/classNames';
 
 export type TextAreaProps = {
   name: string;

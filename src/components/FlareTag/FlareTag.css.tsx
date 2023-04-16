@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { theme } from '@/theme/Theme.css';
+import { theme } from '../../theme';
 
 export const styles = {
   container: style({

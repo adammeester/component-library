@@ -1,5 +1,5 @@
-import { theme } from '@/theme/Theme.css';
-import { globalStyle, style } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
+import { theme } from '../../theme/Theme.css';
 
 const { palette } = theme;
 

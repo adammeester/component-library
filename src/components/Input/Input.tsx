@@ -1,8 +1,8 @@
-import { classNames } from '@/components/utils/classNames';
-import { acceptedFiles } from '@/components/utils/constants';
 import React from 'react';
 import { styles } from './Input.css';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
+import { classNames } from '../../utils/classNames';
+import { acceptedFiles } from '../../utils/constants';
 
 export type InputTypes =
   | 'text'

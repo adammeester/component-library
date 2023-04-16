@@ -1,6 +1,6 @@
-import { grow } from '@/keyframes/keyframes.css';
-import { theme } from '@/theme/Theme.css';
 import { style } from '@vanilla-extract/css';
+import { theme } from '../../theme';
+import { grow } from '../../keyframes/keyframes.css';
 
 export const styles = {
   container: style({
