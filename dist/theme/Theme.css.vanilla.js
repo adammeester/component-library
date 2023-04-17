@@ -1,0 +1,7 @@
+import './Theme.css.ts.vanilla.css';
+
+var moreGGDarkTheme = "Theme_moreGGDarkTheme__wui58sd";
+var theme = { name: "var(--name__wui58s0)", palette: { primary: { main: "var(--palette-primary-main__wui58s1)", dark: "var(--palette-primary-dark__wui58s2)", light: "var(--palette-primary-light__wui58s3)", accent: "var(--palette-primary-accent__wui58s4)", contrast: "var(--palette-primary-contrast__wui58s5)" }, secondary: { main: "var(--palette-secondary-main__wui58s6)", dark: "var(--palette-secondary-dark__wui58s7)", light: "var(--palette-secondary-light__wui58s8)", accent: "var(--palette-secondary-accent__wui58s9)", contrast: "var(--palette-secondary-contrast__wui58sa)" }, border: { main: "var(--palette-border-main__wui58sb)", secondary: "var(--palette-border-secondary__wui58sc)" } } };
+var themeContract = { name: "var(--name__wui58s0)", palette: { primary: { main: "var(--palette-primary-main__wui58s1)", dark: "var(--palette-primary-dark__wui58s2)", light: "var(--palette-primary-light__wui58s3)", accent: "var(--palette-primary-accent__wui58s4)", contrast: "var(--palette-primary-contrast__wui58s5)" }, secondary: { main: "var(--palette-secondary-main__wui58s6)", dark: "var(--palette-secondary-dark__wui58s7)", light: "var(--palette-secondary-light__wui58s8)", accent: "var(--palette-secondary-accent__wui58s9)", contrast: "var(--palette-secondary-contrast__wui58sa)" }, border: { main: "var(--palette-border-main__wui58sb)", secondary: "var(--palette-border-secondary__wui58sc)" } } };
+
+export { moreGGDarkTheme, theme, themeContract };
