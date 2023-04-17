@@ -7,6 +7,7 @@ import depsExternal from 'rollup-plugin-node-externals';
 import ts from 'typescript';
 import postcss from 'rollup-plugin-postcss';
 import typescript from '@rollup/plugin-typescript';
+import copy from 'rollup-plugin-copy';
 
 const loadCompilerOptions = (tsconfig) => {
   if (!tsconfig) return {};
@@ -26,13 +27,17 @@ const plugins = [
   depsExternal(),
   esbuild(),
   json(),
-  postcss({
-    extract: true,
-    modules: true,
-  }),
+  // postcss({
+  //   extract: true,
+  //   modules: true,
+  // }),
   typescript({
+    // include: ['src/**/*.ts', 'src/**/*.tsx'],
     allowJs: true, // Allow JavaScript files to be compiled
     jsx: 'react', // Compile JSX to React.createElement calls
+  }),
+  copy({
+    targets: [{ src: 'package.json', dest: 'dist' }],
   }),
 ];
 
