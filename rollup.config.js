@@ -35,18 +35,13 @@ const plugins = [
     jsx: 'react',
   }),
   copy({
-    targets: [{ src: 'package.json', dest: 'dist' }],
+    targets: [{ src: 'package.json', dest: 'dist/' }],
   }),
 ];
 
 export default [
   {
-    input: [
-      'src/index.ts',
-      'src/components/index.ts',
-      'src/keyframes/index.ts',
-      'src/utils/index.ts',
-    ],
+    input: ['src/index.ts'],
     plugins,
     output: [
       {
