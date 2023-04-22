@@ -5,7 +5,6 @@ import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
 import depsExternal from 'rollup-plugin-node-externals';
 import ts from 'typescript';
-import postcss from 'rollup-plugin-postcss';
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
 
@@ -32,9 +31,8 @@ const plugins = [
   //   modules: true,
   // }),
   typescript({
-    // include: ['src/**/*.ts', 'src/**/*.tsx'],
-    allowJs: true, // Allow JavaScript files to be compiled
-    jsx: 'react', // Compile JSX to React.createElement calls
+    allowJs: true,
+    jsx: 'react',
   }),
   copy({
     targets: [{ src: 'package.json', dest: 'dist' }],
@@ -43,7 +41,12 @@ const plugins = [
 
 export default [
   {
-    input: 'src/index.ts',
+    input: [
+      'src/index.ts',
+      'src/components/index.ts',
+      'src/keyframes/index.ts',
+      'src/utils/index.ts',
+    ],
     plugins,
     output: [
       {
