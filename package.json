@@ -2,7 +2,7 @@
   "author": "Adam Meester",
   "name": "@adammeester/component-library",
   "description": "Adam Meester's component library",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "files": [
     "dist"
   ],
