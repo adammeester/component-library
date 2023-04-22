@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "start": "storybook dev -p 6006",
-    "build": "mkdir -p dist && rollup -c ./rollup.config.js",
+    "build": "rollup -c",
     "build:nextjs": "MODULE=esm PUBLISH_CONFIG=nextjs rollup -c",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
