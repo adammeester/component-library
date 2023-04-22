@@ -2,13 +2,13 @@
   "author": "Adam Meester",
   "name": "@adammeester/component-library",
   "description": "Adam Meester's component library",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "files": [
     "dist"
   ],
   "scripts": {
     "start": "storybook dev -p 6006",
-    "build": "rollup -c",
+    "build": "mkdir -p dist && rollup -c ./rollup.config.js",
     "build:nextjs": "MODULE=esm PUBLISH_CONFIG=nextjs rollup -c",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -18,7 +18,7 @@
     "version:minor": "npm version minor && git push && git push --tags",
     "version:major": "npm version major && git push && git push --tags"
   },
-  "main": "dist",
+  "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -36,6 +36,7 @@
     "overrides": [
       {
         "files": [
+          "dist",
           "**/*.stories.*"
         ],
         "rules": {
