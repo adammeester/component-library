@@ -32,7 +32,9 @@ jobs:
       - name: Build
         run: npm run build
       - name: Log files being published
-        run: echo "Files being published: $(ls dist)"
+        run: |
+          echo "Files being published:"
+          ls dist
       # - name: Copy dist directory
       #   run: cp -r dist/* .
       # - name: Upload dist folder
