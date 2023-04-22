@@ -2,7 +2,7 @@
   "author": "Adam Meester",
   "name": "@adammeester/component-library",
   "description": "Adam Meester's component library",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "files": [
     "dist"
   ],
@@ -18,7 +18,7 @@
     "version:minor": "npm version minor && git push && git push --tags",
     "version:major": "npm version major && git push && git push --tags"
   },
-  "main": "dist/index.js",
+  "main": "dist",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
