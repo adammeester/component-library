@@ -53,7 +53,8 @@ export default [
         dir: 'dist',
         format: 'esm',
         preserveModules: true,
-        preserveModulesRoot: 'src',
+        // preserveModulesRoot: 'src',
+        sourcemap: true,
 
         // Change .css.js files to something else so that they don't get re-processed by consumer's setup
         entryFileNames({ name }) {
