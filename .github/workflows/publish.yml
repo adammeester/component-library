@@ -31,8 +31,10 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@main
       - name: Build
         run: npm run build
-      - name: Copy dist directory
-        run: cp -r dist/* .
+      - name: Log files being published
+        run: echo "Files being published: $(ls dist)"
+      # - name: Copy dist directory
+      #   run: cp -r dist/* .
       # - name: Upload dist folder
       #   uses: actions/upload-artifact@v2
       #   with:
