@@ -2,10 +2,9 @@
   "author": "Adam Meester",
   "name": "@adammeester/component-library",
   "description": "Adam Meester's component library",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "files": [
-    "dist",
-    "dist/**/*"
+    "dist"
   ],
   "scripts": {
     "start": "storybook dev -p 6006",
