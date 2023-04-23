@@ -34,9 +34,9 @@ const plugins = [
     allowJs: true,
     jsx: 'react',
   }),
-  // copy({
-  //   targets: [{ src: 'package.json', dest: 'dist/' }],
-  // }),
+  copy({
+    targets: [{ src: 'package.json', dest: 'dist' }],
+  }),
 ];
 
 export default [
