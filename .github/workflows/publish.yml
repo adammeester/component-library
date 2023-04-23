@@ -48,9 +48,3 @@ jobs:
         working-directory: 'dist'
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      # - name: Publish beta version
-      #   run: npm publish --tag next
-      #   if: (contains(github.ref, 'feature') || contains(github.ref, 'fix')) && contains(steps.package-version.outputs.current-version, 'beta')
-      #   working-directory: 'dist'
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
