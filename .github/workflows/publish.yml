@@ -14,8 +14,8 @@ jobs:
       - name: Build Package
         run: npm run build
       - name: Publish Package
-        uses: actions/npm@v1
+        uses: '@npm/action-publish'
         with:
-          args: 'publish dist'
+          args: 'dist'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
