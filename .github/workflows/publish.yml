@@ -1,50 +1,21 @@
-# Workflow name
-name: 'Publish'
-
-# Event for the workflow
+name: Publish Package
 on:
   push:
     branches:
       - main
-      - 'feature/**'
-      - '*fix/**'
-
-# List of jobs
 jobs:
-  publish-package:
-    # Operating System
+  publish:
     runs-on: ubuntu-latest
-    # Job steps
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: https://npm.pkg.github.com/
-
-      - name: Install dependencies
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Install Dependencies
         run: npm install
-      # - name: Unit tests
-      #   run: npm run test
-      - name: get-npm-version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@main
-      - name: Build
+      - name: Build Package
         run: npm run build
-      - name: Log files being published
-        run: |
-          echo "Files being published:"
-          ls dist
-      # - name: Copy dist directory
-      #   run: cp -r dist/* .
-      # - name: Upload dist folder
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: dist
-      #     path: dist
-      - name: Publish from main
-        run: npm publish
-        if: github.ref == 'refs/heads/main'
-        working-directory: 'dist'
+      - name: Publish Package
+        uses: actions/npm@v1
+        with:
+          args: 'publish dist'
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
