@@ -2,7 +2,7 @@
   "author": "Adam Meester",
   "name": "@adammeester/component-library",
   "description": "Adam Meester's component library",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "files": [
     "dist"
   ],
@@ -45,33 +45,18 @@
       }
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.23",
-    "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
     "@vanilla-extract/css": "^1.11.0",
     "@vanilla-extract/recipes": "^0.3.0",
     "eslint": "8.34.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
-    "react-scripts": "5.0.1",
     "react-select": "^5.7.0",
     "react-spinners": "^0.13.8",
     "web-vitals": "^2.1.4"
@@ -90,23 +75,24 @@
     "@storybook/react": "^7.0.5",
     "@storybook/react-webpack5": "^7.0.5",
     "@storybook/testing-library": "^0.0.14-next.2",
+    "@types/react": "^18.0.38",
     "@vanilla-extract/rollup-plugin": "^1.2.1",
     "@vanilla-extract/webpack-plugin": "^2.2.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-storybook": "^0.6.10",
     "mini-css-extract-plugin": "^2.7.5",
     "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "rollup": "^2.79.1",
+    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-dts": "^4.2.0",
     "rollup-plugin-esbuild": "^4.8.2",
     "rollup-plugin-node-externals": "^4.0.0",
     "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-copy": "^3.4.0",
     "sb": "^7.0.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "storybook": "^7.0.5",
-    "typescript": "^4.9.5",
+    "typescript": "^5.0.4",
     "webpack": "^5.79.0"
   }
 }

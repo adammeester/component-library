@@ -14,8 +14,8 @@ export const styles = {
     cursor: 'pointer',
     fontWeight: 700,
     backgroundColor: palette.primary.accent,
-    textShadow: `0rem 0.1rem 0.1rem ${palette.primary.dark}`,
-    boxShadow: `0.13rem 0.3rem 0.9375rem 0rem ${palette.primary.dark}`,
+    // textShadow: `0rem 0.1rem 0.1rem ${palette.primary.dark}`,
+    // boxShadow: `0.13rem 0.3rem 0.9375rem 0rem ${palette.primary.dark}`,
     // ':hover': {
     //   animation: `${grow} 0.2s ease-in-out forwards`,
     //   boxShadow: `0.3rem 0.438rem 0.9375rem 0rem ${palette.primary.dark}`,
