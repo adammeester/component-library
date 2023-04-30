@@ -45,6 +45,5 @@ jobs:
       - name: Publish from main
         run: npm publish
         if: github.ref == 'refs/heads/main'
-        working-directory: 'dist'
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
