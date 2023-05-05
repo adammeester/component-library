@@ -41,10 +41,10 @@ const plugins = [
   //next config
   resolve({ extensions: resolveExtensions }),
   postcss(),
-  commonjs({
-    include: '**/node_modules/**',
-  }),
-  //
+  // commonjs({
+  //   include: '**/node_modules/**',
+  // }),
+
   typescript({
     allowJs: true,
     jsx: 'react',
