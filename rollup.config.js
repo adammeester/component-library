@@ -1,4 +1,5 @@
 import json from '@rollup/plugin-json';
+import postcss from 'rollup-plugin-postcss';
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
 import path from 'path';
 import dts from 'rollup-plugin-dts';
@@ -22,7 +23,7 @@ const loadCompilerOptions = (tsconfig) => {
 const compilerOptions = loadCompilerOptions('tsconfig.json');
 
 const plugins = [
-  vanillaExtractPlugin(),
+  // vanillaExtractPlugin(),
   depsExternal(),
   esbuild(),
   json(),
@@ -37,6 +38,19 @@ const plugins = [
   copy({
     targets: [{ src: 'package.json', dest: 'dist' }],
   }),
+  postcss({
+    extract: true,
+    modules: true,
+    minimize: true,
+    extract: true,
+    sourceMap: true,
+    autoModules: true,
+    plugins: [
+      require('postcss-import'),
+      require('postcss-url')({ url: 'inline' }),
+      require('autoprefixer'),
+    ],
+  }),
 ];
 
 export default [
@@ -46,7 +60,8 @@ export default [
     output: [
       {
         dir: 'dist',
-        format: 'esm',
+        // format: 'esm',
+        format: 'cjs',
         preserveModules: true,
         preserveModulesRoot: 'src',
         sourcemap: true,
