@@ -48,18 +48,13 @@ const resolveExtensions = ['.js', '.jsx', '.ts', '.tsx'];
 
 const plugins = [
   depsExternal(),
-  vanillaExtractPlugin(),
-  typescript({
-    allowJs: true,
-    jsx: 'react',
-    tsconfig: './tsconfig.json',
-  }),
+  // vanillaExtractPlugin(),
   commonjs({
     include: '**/node_modules/**',
   }),
   resolve({ extensions: resolveExtensions }),
   postcss(),
-  // esbuild(),
+  esbuild({ allowJs: true, jsx: 'react', tsconfig: './tsconfig.json' }),
   json(),
 ];
 
@@ -73,7 +68,8 @@ export default [
         format: 'esm',
         preserveModules: true,
         preserveModulesRoot: 'src',
-
+        sourcemap: true,
+        exports: 'auto',
         // // Change .css.js files to something else so that they don't get re-processed by consumer's setup
         // entryFileNames({ name }) {
         //   return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
@@ -84,7 +80,7 @@ export default [
           return name.replace(/^src\//, '');
         },
 
-        exports: 'named',
+        // exports: 'named',
         ...additionalOutputsConfig,
       },
     ],
