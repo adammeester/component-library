@@ -24,6 +24,10 @@ const loadCompilerOptions = (tsconfig) => {
 
 const compilerOptions = loadCompilerOptions('tsconfig.json');
 
+const additionalConfig = {
+  external: (id) => globalModules.includes(id) || /core-js/.test(id),
+};
+
 const plugins = [
   vanillaExtractPlugin(),
   typescript({
@@ -60,6 +64,7 @@ export default [
         exports: 'named',
       },
     ],
+    ...additionalConfig,
   },
   // Declaration files
   {
