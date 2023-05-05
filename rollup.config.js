@@ -33,7 +33,7 @@ const globals = {
 const globalModules = Object.keys(globals);
 
 const plugins = [
-  // vanillaExtractPlugin(),
+  vanillaExtractPlugin(),
   depsExternal(),
   esbuild(),
   json(),
