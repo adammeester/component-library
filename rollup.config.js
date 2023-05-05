@@ -47,6 +47,7 @@ const additionalOutputsConfig = {
 const resolveExtensions = ['.js', '.jsx', '.ts', '.tsx'];
 
 const plugins = [
+  // depsExternal(),
   vanillaExtractPlugin(),
   typescript({
     allowJs: true,
@@ -55,7 +56,6 @@ const plugins = [
   }),
   resolve({ extensions: resolveExtensions }),
   postcss(),
-  depsExternal(),
   esbuild(),
   json(),
 ];
