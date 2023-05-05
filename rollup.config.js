@@ -54,7 +54,8 @@ const plugins = [
   }),
   resolve({ extensions: resolveExtensions }),
   postcss(),
-  esbuild({ allowJs: true, jsx: 'react', tsconfig: './tsconfig.json' }),
+  // typescript({ allowJs: true, jsx: 'react', tsconfig: './tsconfig.json' }),
+  esbuild({ tsconfig: './tsconfig.json' }),
   json(),
 ];
 
