@@ -71,11 +71,11 @@ export default [
         },
         treeshake: false,
         //
-        // need this when consuming app doesn't know about
+        // need this when consuming app doesn't know about vanilla
         // Change .css.js files to something else so that they don't get re-processed by consumer's setup
-        // entryFileNames({ name }) {
-        //   return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
-        // },
+        entryFileNames({ name }) {
+          return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
+        },
 
         // Apply preserveModulesRoot to asset names
         assetFileNames({ name }) {
