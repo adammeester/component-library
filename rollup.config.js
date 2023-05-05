@@ -53,40 +53,40 @@ const plugins = [
 ];
 
 export default [
-  // {
-  //   input: ['src/index.ts'],
-  //   plugins,
-  //   output: [
-  //     {
-  //       dir: 'dist',
-  //       format: 'esm',
-  //       preserveModules: true,
-  //       preserveModulesRoot: 'src',
-  //       sourcemap: true,
-  //       exports: 'auto',
-  //       //next config
-  //       globals,
-  //       generatedCode: {
-  //         constBindings: true,
-  //       },
-  //       treeshake: false,
-  //       //
-  //       // need this when consuming app doesn't know about vanilla
-  //       // Change .css.js files to something else so that they don't get re-processed by consumer's setup
-  //       // entryFileNames({ name }) {
-  //       //   return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
-  //       // },
+  {
+    input: ['src/index.ts'],
+    plugins,
+    output: [
+      {
+        dir: 'dist',
+        format: 'esm',
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+        sourcemap: true,
+        exports: 'auto',
+        //next config
+        globals,
+        generatedCode: {
+          constBindings: true,
+        },
+        treeshake: false,
+        //
+        // need this when consuming app doesn't know about vanilla
+        // Change .css.js files to something else so that they don't get re-processed by consumer's setup
+        // entryFileNames({ name }) {
+        //   return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
+        // },
 
-  //       // Apply preserveModulesRoot to asset names
-  //       assetFileNames({ name }) {
-  //         return name.replace(/^src\//, '');
-  //       },
+        // Apply preserveModulesRoot to asset names
+        assetFileNames({ name }) {
+          return name.replace(/^src\//, '');
+        },
 
-  //       exports: 'named',
-  //     },
-  //   ],
-  //   external: (id) => globalModules.includes(id) || /core-js/.test(id),
-  // },
+        exports: 'named',
+      },
+    ],
+    external: (id) => globalModules.includes(id) || /core-js/.test(id),
+  },
   // Declaration files
   {
     input: 'src/index.ts',
@@ -111,19 +111,11 @@ export default [
         format: 'esm',
         preserveModules: true,
         preserveModulesRoot: 'src',
-
-        sourcemap: true,
-        exports: 'auto',
-        //next config
         globals,
         generatedCode: {
           constBindings: true,
         },
         treeshake: false,
-        assetFileNames({ name }) {
-          return name.replace(/^src\//, '');
-        },
-        exports: 'named',
       },
     ],
   },
