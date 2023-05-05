@@ -21,40 +21,24 @@ const loadCompilerOptions = (tsconfig) => {
   );
   return options;
 };
-const resolveExtensions = ['.js', '.jsx', '.ts', '.tsx'];
-const compilerOptions = loadCompilerOptions('tsconfig.json');
-const globals = {
-  react: 'React',
-  'react-dom': 'ReactDOM',
-  'core-js': 'core-js',
-  '@vanilla-extract/css': '@vanilla-extract/css',
-};
 
-const globalModules = Object.keys(globals);
+const compilerOptions = loadCompilerOptions('tsconfig.json');
 
 const plugins = [
-  // vanillaExtractPlugin(),
-  depsExternal(),
-  esbuild(),
-  json(),
-
-  //next config
-  resolve({ extensions: resolveExtensions }),
-  postcss(),
-  commonjs({
-    include: '**/node_modules/**',
-  }),
-
+  vanillaExtractPlugin(),
   typescript({
     allowJs: true,
     jsx: 'react',
     tsconfig: './tsconfig.json',
   }),
+  depsExternal(),
+  esbuild(),
+  json(),
 ];
 
 export default [
   {
-    input: ['src/index.ts'],
+    input: 'src/index.ts',
     plugins,
     output: [
       {
@@ -62,20 +46,11 @@ export default [
         format: 'esm',
         preserveModules: true,
         preserveModulesRoot: 'src',
-        sourcemap: true,
-        exports: 'auto',
-        //next config
-        globals,
-        generatedCode: {
-          constBindings: true,
-        },
-        treeshake: false,
-        //
-        // need this when consuming app doesn't know about vanilla
+
         // Change .css.js files to something else so that they don't get re-processed by consumer's setup
-        // entryFileNames({ name }) {
-        //   return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
-        // },
+        entryFileNames({ name }) {
+          return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
+        },
 
         // Apply preserveModulesRoot to asset names
         assetFileNames({ name }) {
@@ -85,7 +60,6 @@ export default [
         exports: 'named',
       },
     ],
-    external: (id) => globalModules.includes(id) || /core-js/.test(id),
   },
   // Declaration files
   {
@@ -104,18 +78,12 @@ export default [
         },
       }),
     ],
-    external: (id) => globalModules.includes(id) || /core-js/.test(id),
     output: [
       {
         dir: 'dist',
         format: 'esm',
         preserveModules: true,
         preserveModulesRoot: 'src',
-        globals,
-        generatedCode: {
-          constBindings: true,
-        },
-        treeshake: false,
       },
     ],
   },
