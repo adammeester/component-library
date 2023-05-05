@@ -1,10 +1,15 @@
 import json from '@rollup/plugin-json';
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
+import resolve from '@rollup/plugin-node-resolve';
+// import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import commonjs from '@rollup/plugin-commonjs';
 import path from 'path';
+import postcss from 'rollup-plugin-postcss';
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
 import depsExternal from 'rollup-plugin-node-externals';
 import ts from 'typescript';
+import typescript from '@rollup/plugin-typescript';
 
 const loadCompilerOptions = (tsconfig) => {
   if (!tsconfig) return {};
@@ -19,7 +24,17 @@ const loadCompilerOptions = (tsconfig) => {
 
 const compilerOptions = loadCompilerOptions('tsconfig.json');
 
-const plugins = [vanillaExtractPlugin(), depsExternal(), esbuild(), json()];
+const plugins = [
+  vanillaExtractPlugin(),
+  typescript({
+    allowJs: true,
+    jsx: 'react',
+    tsconfig: './tsconfig.json',
+  }),
+  depsExternal(),
+  esbuild(),
+  json(),
+];
 
 export default [
   {
