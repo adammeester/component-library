@@ -74,9 +74,9 @@ export default [
         treeshake: false,
 
         // Change .css.js files to something else so that they don't get re-processed by consumer's setup
-        entryFileNames({ name }) {
-          return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
-        },
+        // entryFileNames({ name }) {
+        //   return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
+        // },
 
         // Apply preserveModulesRoot to asset names
         assetFileNames({ name }) {
@@ -92,17 +92,17 @@ export default [
     input: 'src/index.ts',
     plugins: [
       ...plugins,
-      dts({
-        compilerOptions: {
-          ...compilerOptions,
-          baseUrl: path.resolve(compilerOptions.baseUrl || '.'),
-          declaration: true,
-          noEmit: false,
-          emitDeclarationOnly: true,
-          noEmitOnError: true,
-          target: ts.ScriptTarget.ESNext,
-        },
-      }),
+      // dts({
+      //   compilerOptions: {
+      //     ...compilerOptions,
+      //     baseUrl: path.resolve(compilerOptions.baseUrl || '.'),
+      //     declaration: true,
+      //     noEmit: false,
+      //     emitDeclarationOnly: true,
+      //     noEmitOnError: true,
+      //     target: ts.ScriptTarget.ESNext,
+      //   },
+      // }),
     ],
     external: (id) => globalModules.includes(id) || /core-js/.test(id),
     output: [
