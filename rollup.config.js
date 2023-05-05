@@ -22,17 +22,44 @@ const loadCompilerOptions = (tsconfig) => {
   return options;
 };
 
+const globals = {
+  react: 'React',
+  'react-dom': 'ReactDOM',
+  'core-js': 'core-js',
+  '@vanilla-extract/css': '@vanilla-extract/css',
+};
+
+const globalModules = Object.keys(globals);
+
 const compilerOptions = loadCompilerOptions('tsconfig.json');
 
+const additionalConfig = {
+  external: (id) => globalModules.includes(id) || /core-js/.test(id),
+};
+
+const additionalOutputsConfig = {
+  globals,
+  generatedCode: {
+    constBindings: true,
+  },
+  treeshake: false,
+};
+const resolveExtensions = ['.js', '.jsx', '.ts', '.tsx'];
+
 const plugins = [
+  depsExternal(),
   vanillaExtractPlugin(),
   typescript({
     allowJs: true,
     jsx: 'react',
     tsconfig: './tsconfig.json',
   }),
-  depsExternal(),
-  esbuild(),
+  commonjs({
+    include: '**/node_modules/**',
+  }),
+  resolve({ extensions: resolveExtensions }),
+  postcss(),
+  // esbuild(),
   json(),
 ];
 
@@ -47,10 +74,10 @@ export default [
         preserveModules: true,
         preserveModulesRoot: 'src',
 
-        // Change .css.js files to something else so that they don't get re-processed by consumer's setup
-        entryFileNames({ name }) {
-          return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
-        },
+        // // Change .css.js files to something else so that they don't get re-processed by consumer's setup
+        // entryFileNames({ name }) {
+        //   return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
+        // },
 
         // Apply preserveModulesRoot to asset names
         assetFileNames({ name }) {
@@ -58,8 +85,10 @@ export default [
         },
 
         exports: 'named',
+        ...additionalOutputsConfig,
       },
     ],
+    ...additionalConfig,
   },
   // Declaration files
   {
