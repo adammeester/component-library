@@ -47,8 +47,8 @@ const additionalOutputsConfig = {
 const resolveExtensions = ['.js', '.jsx', '.ts', '.tsx'];
 
 const plugins = [
-  // depsExternal(),
-  vanillaExtractPlugin(),
+  depsExternal(),
+  // vanillaExtractPlugin(),
   typescript({
     allowJs: true,
     jsx: 'react',
@@ -71,10 +71,10 @@ export default [
         preserveModules: true,
         preserveModulesRoot: 'src',
 
-        // Change .css.js files to something else so that they don't get re-processed by consumer's setup
-        entryFileNames({ name }) {
-          return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
-        },
+        // // Change .css.js files to something else so that they don't get re-processed by consumer's setup
+        // entryFileNames({ name }) {
+        //   return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
+        // },
 
         // Apply preserveModulesRoot to asset names
         assetFileNames({ name }) {
