@@ -1,5 +1,4 @@
 import json from '@rollup/plugin-json';
-import postcss from 'rollup-plugin-postcss';
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
 import path from 'path';
 import dts from 'rollup-plugin-dts';
@@ -37,19 +36,6 @@ const plugins = [
   }),
   copy({
     targets: [{ src: 'package.json', dest: 'dist' }],
-  }),
-  postcss({
-    extract: true,
-    modules: true,
-    minimize: true,
-    extract: true,
-    sourceMap: true,
-    autoModules: true,
-    plugins: [
-      require('postcss-import'),
-      require('postcss-url')({ url: 'inline' }),
-      require('autoprefixer'),
-    ],
   }),
 ];
 
