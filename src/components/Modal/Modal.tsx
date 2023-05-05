@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import { IoMdClose } from 'react-icons/io';
 import { Button } from '../Button';
 import { styles } from './Modal.css';
 import { classNames } from '../../utils/classNames';
@@ -10,6 +9,12 @@ export type ModalProps = {
   children: ReactNode;
   variant?: 'default' | 'full-screen' | 'popup' | 'side';
   className?: string;
+  closeIcon?:
+    | React.ReactSVGElement
+    | React.DetailedHTMLProps<
+        React.ImgHTMLAttributes<HTMLImageElement>,
+        HTMLImageElement
+      >;
   onClose?: () => void;
 };
 
@@ -19,6 +24,7 @@ export const Modal = ({
   children,
   variant = 'default',
   className,
+  closeIcon,
   onClose,
 }: ModalProps) => {
   if (!isOpen) return null;
@@ -38,9 +44,8 @@ export const Modal = ({
               variant='icon'
               onClick={onClose}
               className={styles.closeButton}
-            >
-              <IoMdClose className={styles.closeIcon} />
-            </Button>
+              icon={closeIcon}
+            />
           ) : null}
         </div>
         <div className={styles.body}>{children}</div>
