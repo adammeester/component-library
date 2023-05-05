@@ -1,6 +1,7 @@
 import json from '@rollup/plugin-json';
-import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
+// import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
 import resolve from '@rollup/plugin-node-resolve';
+// import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import commonjs from '@rollup/plugin-commonjs';
 import path from 'path';
 import postcss from 'rollup-plugin-postcss';
@@ -70,7 +71,7 @@ export default [
         },
         treeshake: false,
         //
-        // need this when consuming app doesn't know about vanilla
+        // need this when consuming app doesn't know about
         // Change .css.js files to something else so that they don't get re-processed by consumer's setup
         // entryFileNames({ name }) {
         //   return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
