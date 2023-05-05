@@ -30,6 +30,8 @@ const globals = {
   '@vanilla-extract/css': '@vanilla-extract/css',
 };
 
+const globalModules = Object.keys(globals);
+
 const plugins = [
   // vanillaExtractPlugin(),
   depsExternal(),
