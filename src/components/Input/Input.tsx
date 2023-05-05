@@ -1,6 +1,6 @@
 import React from 'react';
 import { styles } from './Input.css';
-import { AiOutlineCloudUpload } from 'react-icons/ai/index';
+// import { AiOutlineCloudUpload } from 'react-icons/ai/index';
 import { classNames } from '../../utils/classNames';
 import { acceptedFiles } from '../../utils/constants';
 
@@ -44,7 +44,7 @@ export const Input = ({
     case 'file':
       return (
         <label className={classNames(styles.fileUpload)} htmlFor={name}>
-          <AiOutlineCloudUpload className={styles.uploadImage} />
+          {/* <AiOutlineCloudUpload className={styles.uploadImage} /> */}
           {label}
           <input
             id='fileUpload'
