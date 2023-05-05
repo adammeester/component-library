@@ -1,5 +1,5 @@
 import React from 'react';
-import { PulseLoader } from 'react-spinners';
+// import { PulseLoader } from 'react-spinners';
 import { styles } from './UploadProgress.css';
 import { theme } from '../../theme/Theme.css';
 import { classNames } from '../../utils/classNames';
@@ -16,7 +16,7 @@ export const UploadProgress = ({
   return (
     <div className={classNames(styles.container, className)}>
       <div>{progress}%</div>
-      <PulseLoader color={theme.palette.primary.contrast} />
+      {/* <PulseLoader color={theme.palette.primary.contrast} /> */}
     </div>
   );
 };
