@@ -22,6 +22,15 @@ const loadCompilerOptions = (tsconfig) => {
   return options;
 };
 
+const globals = {
+  react: 'React',
+  'react-dom': 'ReactDOM',
+  'core-js': 'core-js',
+  '@vanilla-extract/css': '@vanilla-extract/css',
+};
+
+const globalModules = Object.keys(globals);
+
 const compilerOptions = loadCompilerOptions('tsconfig.json');
 
 const additionalConfig = {
