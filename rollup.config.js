@@ -28,6 +28,15 @@ const additionalConfig = {
   external: (id) => globalModules.includes(id) || /core-js/.test(id),
 };
 
+const additionalOutputsConfig = {
+  globals,
+  generatedCode: {
+    constBindings: true,
+  },
+  treeshake: false,
+};
+const resolveExtensions = ['.js', '.jsx', '.ts', '.tsx'];
+
 const plugins = [
   vanillaExtractPlugin(),
   typescript({
@@ -35,6 +44,8 @@ const plugins = [
     jsx: 'react',
     tsconfig: './tsconfig.json',
   }),
+  resolve({ extensions: resolveExtensions }),
+  postcss(),
   depsExternal(),
   esbuild(),
   json(),
@@ -62,6 +73,7 @@ export default [
         },
 
         exports: 'named',
+        ...additionalOutputsConfig,
       },
     ],
     ...additionalConfig,
