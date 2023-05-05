@@ -1,5 +1,5 @@
 import json from '@rollup/plugin-json';
-// import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
+import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
 import resolve from '@rollup/plugin-node-resolve';
 // import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import commonjs from '@rollup/plugin-commonjs';
@@ -33,7 +33,7 @@ const globals = {
 const globalModules = Object.keys(globals);
 
 const plugins = [
-  vanillaExtractPlugin(),
+  // vanillaExtractPlugin(),
   depsExternal(),
   esbuild(),
   json(),
