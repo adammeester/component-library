@@ -85,32 +85,33 @@ export default [
         exports: 'named',
       },
     ],
+    external: (id) => globalModules.includes(id) || /core-js/.test(id),
   },
   // Declaration files
-  {
-    input: 'src/index.ts',
-    plugins: [
-      ...plugins,
-      dts({
-        compilerOptions: {
-          ...compilerOptions,
-          baseUrl: path.resolve(compilerOptions.baseUrl || '.'),
-          declaration: true,
-          noEmit: false,
-          emitDeclarationOnly: true,
-          noEmitOnError: true,
-          target: ts.ScriptTarget.ESNext,
-        },
-      }),
-    ],
-    external: (id) => globalModules.includes(id) || /core-js/.test(id),
-    output: [
-      {
-        dir: 'dist',
-        format: 'esm',
-        preserveModules: true,
-        preserveModulesRoot: 'src',
-      },
-    ],
-  },
+  // {
+  //   input: 'src/index.ts',
+  //   plugins: [
+  //     ...plugins,
+  //     dts({
+  //       compilerOptions: {
+  //         ...compilerOptions,
+  //         baseUrl: path.resolve(compilerOptions.baseUrl || '.'),
+  //         declaration: true,
+  //         noEmit: false,
+  //         emitDeclarationOnly: true,
+  //         noEmitOnError: true,
+  //         target: ts.ScriptTarget.ESNext,
+  //       },
+  //     }),
+  //   ],
+  //   external: (id) => globalModules.includes(id) || /core-js/.test(id),
+  //   output: [
+  //     {
+  //       dir: 'dist',
+  //       format: 'esm',
+  //       preserveModules: true,
+  //       preserveModulesRoot: 'src',
+  //     },
+  //   ],
+  // },
 ];
