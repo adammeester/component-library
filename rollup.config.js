@@ -37,17 +37,19 @@ const plugins = [
   depsExternal(),
   esbuild(),
   json(),
+
+  //next config
+  peerDepsExternal(),
   resolve({ extensions: resolveExtensions }),
-  // postcss({
-  //   extract: true,
-  //   modules: true,
-  // }),
+  postcss(),
   commonjs({
     include: '**/node_modules/**',
   }),
+  //
   typescript({
     allowJs: true,
     jsx: 'react',
+    tsconfig: './tsconfig.json',
   }),
   copy({
     targets: [{ src: 'package.json', dest: 'dist' }],
@@ -66,12 +68,13 @@ export default [
         preserveModulesRoot: 'src',
         sourcemap: true,
         exports: 'auto',
-
+        //next config
         globals,
         generatedCode: {
           constBindings: true,
         },
         treeshake: false,
+        //
 
         // Change .css.js files to something else so that they don't get re-processed by consumer's setup
         // entryFileNames({ name }) {
