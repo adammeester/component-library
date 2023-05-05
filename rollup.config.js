@@ -60,8 +60,7 @@ export default [
     output: [
       {
         dir: 'dist',
-        // format: 'esm',
-        format: 'cjs',
+        format: 'esm',
         preserveModules: true,
         preserveModulesRoot: 'src',
         sourcemap: true,
