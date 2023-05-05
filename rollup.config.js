@@ -1,5 +1,8 @@
 import json from '@rollup/plugin-json';
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
+import resolve from '@rollup/plugin-node-resolve';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import commonjs from '@rollup/plugin-commonjs';
 import path from 'path';
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
@@ -18,7 +21,7 @@ const loadCompilerOptions = (tsconfig) => {
   );
   return options;
 };
-
+const resolveExtensions = ['.js', '.jsx', '.ts', '.tsx'];
 const compilerOptions = loadCompilerOptions('tsconfig.json');
 
 const plugins = [
@@ -26,10 +29,14 @@ const plugins = [
   depsExternal(),
   esbuild(),
   json(),
+  resolve({ extensions: resolveExtensions }),
   // postcss({
   //   extract: true,
   //   modules: true,
   // }),
+  commonjs({
+    include: '**/node_modules/**',
+  }),
   typescript({
     allowJs: true,
     jsx: 'react',
@@ -51,6 +58,12 @@ export default [
         preserveModulesRoot: 'src',
         sourcemap: true,
         exports: 'auto',
+
+        globals,
+        generatedCode: {
+          constBindings: true,
+        },
+        treeshake: false,
 
         // Change .css.js files to something else so that they don't get re-processed by consumer's setup
         entryFileNames({ name }) {
@@ -83,6 +96,7 @@ export default [
         },
       }),
     ],
+    external: (id) => globalModules.includes(id) || /core-js/.test(id),
     output: [
       {
         dir: 'dist',
