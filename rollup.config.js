@@ -52,9 +52,6 @@ const plugins = [
     jsx: 'react',
     tsconfig: './tsconfig.json',
   }),
-  copy({
-    targets: [{ src: 'package.json', dest: 'dist' }],
-  }),
 ];
 
 export default [
@@ -96,17 +93,17 @@ export default [
     input: 'src/index.ts',
     plugins: [
       ...plugins,
-      // dts({
-      //   compilerOptions: {
-      //     ...compilerOptions,
-      //     baseUrl: path.resolve(compilerOptions.baseUrl || '.'),
-      //     declaration: true,
-      //     noEmit: false,
-      //     emitDeclarationOnly: true,
-      //     noEmitOnError: true,
-      //     target: ts.ScriptTarget.ESNext,
-      //   },
-      // }),
+      dts({
+        compilerOptions: {
+          ...compilerOptions,
+          baseUrl: path.resolve(compilerOptions.baseUrl || '.'),
+          declaration: true,
+          noEmit: false,
+          emitDeclarationOnly: true,
+          noEmitOnError: true,
+          target: ts.ScriptTarget.ESNext,
+        },
+      }),
     ],
     external: (id) => globalModules.includes(id) || /core-js/.test(id),
     output: [
