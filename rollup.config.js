@@ -23,6 +23,12 @@ const loadCompilerOptions = (tsconfig) => {
 };
 const resolveExtensions = ['.js', '.jsx', '.ts', '.tsx'];
 const compilerOptions = loadCompilerOptions('tsconfig.json');
+const globals = {
+  react: 'React',
+  'react-dom': 'ReactDOM',
+  'core-js': 'core-js',
+  '@vanilla-extract/css': '@vanilla-extract/css',
+};
 
 const plugins = [
   // vanillaExtractPlugin(),
