@@ -1,9 +1,7 @@
 import { globalStyle, style, styleVariants } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 import { grow } from '../../keyframes/keyframes.css';
-import { theme } from '../../theme/Theme.css';
-
-const { palette } = theme;
+import { palette } from '../../theme/Theme.css';
 
 export const styles = {
   button: style({

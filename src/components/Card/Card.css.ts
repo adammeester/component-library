@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { theme } from '../../theme';
+import { palette } from '../../theme';
 import { grow } from '../../keyframes/keyframes.css';
 
 export const styles = {
@@ -12,8 +12,8 @@ export const styles = {
     width: '20rem',
     borderRadius: '0.3rem',
     cursor: 'pointer',
-    background: theme.palette.secondary.main,
-    boxShadow: `0.13rem 0.3rem 0.9375rem 0rem ${theme.palette.primary.dark}`,
+    background: palette.secondary.main,
+    boxShadow: `0.13rem 0.3rem 0.9375rem 0rem ${palette.primary.dark}`,
     ':hover': {
       animation: `${grow} 0.2s ease-in-out forwards`,
     },

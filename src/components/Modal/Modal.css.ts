@@ -1,8 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { fadeIn } from '../../keyframes/keyframes.css';
-import { theme } from '../../theme/Theme.css';
-
-const { palette } = theme;
+import { palette } from '../../theme/Theme.css';
 
 export const styles = {
   modal: style({

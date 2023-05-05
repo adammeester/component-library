@@ -41,3 +41,5 @@ const tokens: MoreGGThemeType = {
 export const moreGGDarkTheme = createTheme(themeContract, tokens);
 
 export const theme = { ...themeContract };
+
+export const palette = themeContract.palette;
