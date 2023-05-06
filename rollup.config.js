@@ -1,13 +1,13 @@
 import json from '@rollup/plugin-json';
-import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
+// import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
 import resolve from '@rollup/plugin-node-resolve';
+// import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import commonjs from '@rollup/plugin-commonjs';
 import path from 'path';
 import postcss from 'rollup-plugin-postcss';
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
 import depsExternal from 'rollup-plugin-node-externals';
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import ts from 'typescript';
 import typescript from '@rollup/plugin-typescript';
 
@@ -56,7 +56,6 @@ export default [
   {
     input: ['src/index.ts'],
     plugins,
-    external: (id) => globalModules.includes(id) || /core-js/.test(id),
     output: [
       {
         dir: 'dist',
@@ -72,6 +71,7 @@ export default [
         },
         treeshake: false,
         //
+        // need this when consuming app doesn't know about
         // Change .css.js files to something else so that they don't get re-processed by consumer's setup
         // entryFileNames({ name }) {
         //   return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
