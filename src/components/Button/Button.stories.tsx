@@ -31,6 +31,6 @@ export const IconOnly: Story = {
     ...defaultArgs,
     variant: 'icon',
     label: undefined,
-    icon: <BsChatSquare />,
+    // icon: <BsChatSquare />,
   },
 };

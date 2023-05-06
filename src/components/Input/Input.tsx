@@ -1,6 +1,5 @@
 import React from 'react';
 import { styles } from './Input.css';
-// import { AiOutlineCloudUpload } from 'react-icons/ai/index';
 import { classNames } from '../../utils/classNames';
 import { acceptedFiles } from '../../utils/constants';
 
