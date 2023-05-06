@@ -34,7 +34,7 @@ const globalModules = Object.keys(globals);
 
 const plugins = [
   // vanillaExtractPlugin(),
-  peerDepsExternal(),
+  depsExternal(),
   esbuild(),
   json(),
 
