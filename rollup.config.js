@@ -1,49 +1,75 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import commonjs from '@rollup/plugin-commonjs';
-import resolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json';
-import typescript from '@rollup/plugin-typescript';
-import del from 'rollup-plugin-delete';
-
-import postcss from 'rollup-plugin-postcss';
-import terser from '@rollup/plugin-terser';
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
+import path from 'path';
+import dts from 'rollup-plugin-dts';
+import esbuild from 'rollup-plugin-esbuild';
+import depsExternal from 'rollup-plugin-node-externals';
+import ts from 'typescript';
 
-export default {
-  input: ['src/index.ts'],
-  output: {
-    dir: 'dist',
-    format: 'esm',
-    preserveModules: true,
-    preserveModulesRoot: 'src',
-    sourcemap: true,
-    exports: 'auto',
-    assetFileNames: ({ name }) => {
-      return name.replace(/^src\//, '');
-    },
-    entryFileNames({ name }) {
-      return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
-    },
-    generatedCode: 'es2015',
-  },
-  plugins: [
-    del({ targets: 'dist/*' }),
-    json(),
-    peerDepsExternal(),
-    resolve(),
-    commonjs(),
-    typescript({
-      tsconfig: './tsconfig.json',
-    }),
-    vanillaExtractPlugin({
-      cssFile: '@vanilla-extract/css/dist/vanilla-extract-css.cjs.js',
-      alias: {
-        '@vanilla-extract/recipes':
-          '@vanilla-extract/recipes/dist/vanilla-extract-recipes.cjs.js',
-      },
-    }),
-    postcss(),
-    terser(),
-  ],
+const loadCompilerOptions = (tsconfig) => {
+  if (!tsconfig) return {};
+  const configFile = ts.readConfigFile(tsconfig, ts.sys.readFile);
+  const { options } = ts.parseJsonConfigFileContent(
+    configFile.config,
+    ts.sys,
+    './'
+  );
+  return options;
 };
+
+const compilerOptions = loadCompilerOptions('tsconfig.json');
+
+const plugins = [vanillaExtractPlugin(), depsExternal(), esbuild(), json()];
+
+export default [
+  {
+    input: 'src/index.ts',
+    plugins,
+    output: [
+      {
+        dir: 'dist',
+        format: 'esm',
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+
+        // Change .css.js files to something else so that they don't get re-processed by consumer's setup
+        entryFileNames({ name }) {
+          return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
+        },
+
+        // Apply preserveModulesRoot to asset names
+        assetFileNames({ name }) {
+          return name.replace(/^src\//, '');
+        },
+
+        exports: 'named',
+      },
+    ],
+  },
+  // Declaration files
+  {
+    input: 'src/index.ts',
+    plugins: [
+      ...plugins,
+      dts({
+        compilerOptions: {
+          ...compilerOptions,
+          baseUrl: path.resolve(compilerOptions.baseUrl || '.'),
+          declaration: true,
+          noEmit: false,
+          emitDeclarationOnly: true,
+          noEmitOnError: true,
+          target: ts.ScriptTarget.ESNext,
+        },
+      }),
+    ],
+    output: [
+      {
+        dir: 'dist',
+        format: 'esm',
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+      },
+    ],
+  },
+];
