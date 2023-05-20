@@ -3,6 +3,7 @@ import typescript from '@rollup/plugin-typescript';
 import json from '@rollup/plugin-json';
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
 import path from 'path';
+import postcss from 'rollup-plugin-postcss';
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
 import depsExternal from 'rollup-plugin-node-externals';
@@ -22,16 +23,21 @@ const loadCompilerOptions = (tsconfig) => {
 const compilerOptions = loadCompilerOptions('tsconfig.json');
 
 const plugins = [
-  vanillaExtractPlugin(),
+  // vanillaExtractPlugin(),
   typescript({ declaration: true, declarationDir: 'dist' }),
   depsExternal(),
   esbuild(),
+  postcss({
+    extract: true, // Extract CSS to separate files
+    modules: true, // Enable CSS modules
+    autoModules: true, // Automatically generate unique class names
+  }),
   json(),
 ];
 
 export default [
   {
-    input: 'src/index.ts',
+    input: ['src/index.ts', 'next-env.d.ts'],
     plugins,
     output: [
       {
@@ -41,8 +47,11 @@ export default [
         preserveModulesRoot: 'src',
 
         // Change .css.js files to something else so that they don't get re-processed by consumer's setup
+        // entryFileNames({ name }) {
+        //   return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
+        // },
         entryFileNames({ name }) {
-          return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
+          return `${name.replace(/\.css$/, '.module.css')}.js`;
         },
 
         // Apply preserveModulesRoot to asset names

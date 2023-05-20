@@ -1,1 +1,4 @@
-{ "presets": ["@babel/preset-typescript"] }
+{
+  "presets": ["@babel/preset-typescript", "@babel/preset-react"],
+  "plugins": ["vanilla-extract-plugin"]
+}
