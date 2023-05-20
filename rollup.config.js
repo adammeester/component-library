@@ -23,7 +23,7 @@ const loadCompilerOptions = (tsconfig) => {
 const compilerOptions = loadCompilerOptions('tsconfig.json');
 
 const plugins = [
-  // vanillaExtractPlugin(),
+  vanillaExtractPlugin(),
   typescript({ declaration: true, declarationDir: 'dist' }),
   depsExternal(),
   esbuild(),
@@ -37,7 +37,7 @@ const plugins = [
 
 export default [
   {
-    input: ['src/index.ts', 'next-env.d.ts'],
+    input: ['src/index.ts'],
     plugins,
     output: [
       {
@@ -88,5 +88,6 @@ export default [
         preserveModulesRoot: 'src',
       },
     ],
+    external: ['next-env.d.ts'],
   },
 ];
