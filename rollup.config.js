@@ -1,93 +1,84 @@
-import nodeResolvePlugin from '@rollup/plugin-node-resolve';
-import typescript from '@rollup/plugin-typescript';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json';
-import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
-import path from 'path';
-import postcss from 'rollup-plugin-postcss';
-import dts from 'rollup-plugin-dts';
-import esbuild from 'rollup-plugin-esbuild';
-import depsExternal from 'rollup-plugin-node-externals';
-import ts from 'typescript';
+import typescript from '@rollup/plugin-typescript';
+import del from 'rollup-plugin-delete';
 
-const loadCompilerOptions = (tsconfig) => {
-  if (!tsconfig) return {};
-  const configFile = ts.readConfigFile(tsconfig, ts.sys.readFile);
-  const { options } = ts.parseJsonConfigFileContent(
-    configFile.config,
-    ts.sys,
-    './'
-  );
-  return options;
+import postcss from 'rollup-plugin-postcss';
+import terser from '@rollup/plugin-terser';
+import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
+
+const isNextJsConfig = true;
+
+const resolveExtensions = ['.js', '.jsx', '.ts', '.tsx'];
+
+const globals = {
+  react: 'React',
+  'react-dom': 'ReactDOM',
+  'core-js': 'core-js',
+  '@vanilla-extract/css': '@vanilla-extract/css',
 };
 
-const compilerOptions = loadCompilerOptions('tsconfig.json');
+const globalModules = Object.keys(globals);
 
-const plugins = [
-  vanillaExtractPlugin(),
-  typescript({ declaration: true, declarationDir: 'dist' }),
-  depsExternal(),
-  esbuild(),
-  postcss({
-    extract: true, // Extract CSS to separate files
-    modules: true, // Enable CSS modules
-    autoModules: true, // Automatically generate unique class names
-  }),
-  json(),
-];
-
-export default [
-  {
-    input: ['src/index.ts'],
-    plugins,
-    output: [
-      {
-        dir: 'dist',
-        format: 'esm',
-        preserveModules: true,
-        preserveModulesRoot: 'src',
-
-        // Change .css.js files to something else so that they don't get re-processed by consumer's setup
-        // entryFileNames({ name }) {
-        //   return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
-        // },
-        entryFileNames({ name }) {
-          return `${name.replace(/\.css$/, '.module.css')}.js`;
-        },
-
-        // Apply preserveModulesRoot to asset names
-        assetFileNames({ name }) {
-          return name.replace(/^src\//, '');
-        },
-
-        exports: 'named',
+const additionalOutputConfig = isNextJsConfig
+  ? {
+      globals,
+      generatedCode: {
+        constBindings: true,
       },
-    ],
-  },
-  // Declaration files
-  {
-    input: 'src/index.ts',
-    plugins: [
-      ...plugins,
-      dts({
-        compilerOptions: {
-          ...compilerOptions,
-          baseUrl: path.resolve(compilerOptions.baseUrl || '.'),
-          declaration: true,
-          noEmit: false,
-          emitDeclarationOnly: true,
-          noEmitOnError: true,
-          target: ts.ScriptTarget.ESNext,
-        },
-      }),
-    ],
-    output: [
-      {
-        dir: 'dist',
-        format: 'esm',
-        preserveModules: true,
-        preserveModulesRoot: 'src',
+      treeshake: false,
+    }
+  : {
+      entryFileNames: ({ name }) => {
+        return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
       },
-    ],
-    external: ['next-env.d.ts'],
+      generatedCode: 'es2015',
+    };
+
+const additionalPlugins = isNextJsConfig ? [] : [vanillaExtractPlugin()];
+
+const additionalConfig = isNextJsConfig
+  ? {
+      external: (id) => globalModules.includes(id) || /core-js/.test(id),
+    }
+  : {};
+
+export default {
+  input: ['src/index.ts'],
+  output: {
+    dir: 'dist',
+    format: 'esm',
+    preserveModules: true,
+    preserveModulesRoot: 'src',
+    sourcemap: true,
+    exports: 'auto',
+    assetFileNames: ({ name }) => {
+      return name.replace(/^src\//, '');
+    },
+    ...additionalOutputConfig,
   },
-];
+  plugins: [
+    del({ targets: 'dist/*' }),
+    json(),
+    // renameNodeModules('js_modules'),
+    peerDepsExternal(),
+    resolve(isNextJsConfig ? { extensions: resolveExtensions } : undefined),
+    commonjs(
+      isNextJsConfig
+        ? {
+            include: '**/node_modules/**',
+          }
+        : undefined
+    ),
+    typescript({
+      tsconfig: './tsconfig.json',
+    }),
+    ...additionalPlugins,
+    postcss(),
+    terser(),
+  ],
+  ...additionalConfig,
+};
