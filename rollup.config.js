@@ -10,42 +10,6 @@ import postcss from 'rollup-plugin-postcss';
 import terser from '@rollup/plugin-terser';
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
 
-const isNextJsConfig = true;
-
-const resolveExtensions = ['.js', '.jsx', '.ts', '.tsx'];
-
-const globals = {
-  react: 'React',
-  'react-dom': 'ReactDOM',
-  'core-js': 'core-js',
-  '@vanilla-extract/css': '@vanilla-extract/css',
-};
-
-const globalModules = Object.keys(globals);
-
-const additionalOutputConfig = isNextJsConfig
-  ? {
-      globals,
-      generatedCode: {
-        constBindings: true,
-      },
-      treeshake: false,
-    }
-  : {
-      entryFileNames: ({ name }) => {
-        return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
-      },
-      generatedCode: 'es2015',
-    };
-
-const additionalPlugins = isNextJsConfig ? [] : [vanillaExtractPlugin()];
-
-const additionalConfig = isNextJsConfig
-  ? {
-      external: (id) => globalModules.includes(id) || /core-js/.test(id),
-    }
-  : {};
-
 export default {
   input: ['src/index.ts'],
   output: {
@@ -58,27 +22,28 @@ export default {
     assetFileNames: ({ name }) => {
       return name.replace(/^src\//, '');
     },
-    ...additionalOutputConfig,
+    entryFileNames({ name }) {
+      return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
+    },
+    generatedCode: 'es2015',
   },
   plugins: [
     del({ targets: 'dist/*' }),
     json(),
-    // renameNodeModules('js_modules'),
     peerDepsExternal(),
-    resolve(isNextJsConfig ? { extensions: resolveExtensions } : undefined),
-    commonjs(
-      isNextJsConfig
-        ? {
-            include: '**/node_modules/**',
-          }
-        : undefined
-    ),
+    resolve(),
+    commonjs(),
     typescript({
       tsconfig: './tsconfig.json',
     }),
-    ...additionalPlugins,
+    vanillaExtractPlugin({
+      cssFile: '@vanilla-extract/css/dist/vanilla-extract-css.cjs.js',
+      alias: {
+        '@vanilla-extract/recipes':
+          '@vanilla-extract/recipes/dist/vanilla-extract-recipes.cjs.js',
+      },
+    }),
     postcss(),
     terser(),
   ],
-  ...additionalConfig,
 };
