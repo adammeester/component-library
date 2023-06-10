@@ -20,7 +20,7 @@ export default defineConfig([
     plugins: [
       depsExternal(),
       typescript({
-        exclude: ['**/*.stories.tsx', '**/*.test.tsx'],
+        exclude: ['**/*.stories.tsx', '**/*.test.tsx', '**/*.css.ts'],
         declaration: false,
         declarationMap: false,
       }),
@@ -52,6 +52,16 @@ export default defineConfig([
   },
   {
     input: 'src/components/index.ts', // <-- React component barrel
+    plugins: [dts(dtsConfig)],
+    output: {
+      dir: 'dist',
+      format: 'esm',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+    },
+  },
+  {
+    input: 'src/theme/index.ts',
     plugins: [dts(dtsConfig)],
     output: {
       dir: 'dist',
