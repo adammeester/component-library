@@ -2,7 +2,7 @@
   "author": "Adam Meester",
   "name": "@adammeester/component-library",
   "description": "Adam Meester's component library",
-  "version": "0.4.38",
+  "version": "0.4.39",
   "type": "module",
   "files": [
     "dist"
@@ -39,7 +39,7 @@
     },
     "./package.json": "./package.json"
   },
-  "module": "dist/index.js",
+  "module": "src/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/adammeester/component-library.git"
