@@ -7,10 +7,10 @@ import typescript from '@rollup/plugin-typescript';
 const dtsConfig = {
   compilerOptions: {
     baseUrl: '.',
-    // paths: {
-    //   '@themes': ['src/themes/themes.ts'],
-    //   '@components': ['src/components.ts'],
-    // },
+    paths: {
+      '@themes': ['src/themes/themes.ts'],
+      '@components': ['src/components.ts'],
+    },
   },
 };
 

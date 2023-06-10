@@ -2,7 +2,7 @@
   "author": "Adam Meester",
   "name": "@adammeester/component-library",
   "description": "Adam Meester's component library",
-  "version": "0.4.40",
+  "version": "0.4.41",
   "type": "module",
   "files": [
     "dist"
@@ -30,6 +30,11 @@
       "import": "./dist/components.ts",
       "types": "./dist/components.ts",
       "default": "./dist/components.ts"
+    },
+    "./theme": {
+      "import": "./dist/theme.ts",
+      "types": "./dist/theme.ts",
+      "default": "./dist/theme.ts"
     },
     "./package.json": "./package.json"
   },
