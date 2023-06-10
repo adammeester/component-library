@@ -1,75 +1,63 @@
-import json from '@rollup/plugin-json';
-import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
-import path from 'path';
+import { defineConfig } from 'rollup';
 import dts from 'rollup-plugin-dts';
-import esbuild from 'rollup-plugin-esbuild';
 import depsExternal from 'rollup-plugin-node-externals';
-import ts from 'typescript';
+import typescript from '@rollup/plugin-typescript';
 
-const loadCompilerOptions = (tsconfig) => {
-  if (!tsconfig) return {};
-  const configFile = ts.readConfigFile(tsconfig, ts.sys.readFile);
-  const { options } = ts.parseJsonConfigFileContent(
-    configFile.config,
-    ts.sys,
-    './'
-  );
-  return options;
+// I use some path aliasing, you can ignore this
+const dtsConfig = {
+  compilerOptions: {
+    baseUrl: '.',
+    // paths: {
+    //   '@themes': ['src/themes/themes.ts'],
+    //   '@components': ['src/components.ts'],
+    // },
+  },
 };
 
-const compilerOptions = loadCompilerOptions('tsconfig.json');
-
-const plugins = [vanillaExtractPlugin(), depsExternal(), esbuild(), json()];
-
-export default [
+export default defineConfig([
   {
-    input: 'src/index.ts',
-    plugins,
-    output: [
-      {
-        dir: 'dist',
-        format: 'esm',
-        preserveModules: true,
-        preserveModulesRoot: 'src',
-
-        // Change .css.js files to something else so that they don't get re-processed by consumer's setup
-        entryFileNames({ name }) {
-          return `${name.replace(/\.css$/, '.css.vanilla')}.js`;
-        },
-
-        // Apply preserveModulesRoot to asset names
-        assetFileNames({ name }) {
-          return name.replace(/^src\//, '');
-        },
-
-        exports: 'named',
-      },
-    ],
-  },
-  // Declaration files
-  {
-    input: 'src/index.ts',
+    input: ['src/index.ts', 'src/components/index.ts'],
     plugins: [
-      ...plugins,
-      dts({
-        compilerOptions: {
-          ...compilerOptions,
-          baseUrl: path.resolve(compilerOptions.baseUrl || '.'),
-          declaration: true,
-          noEmit: false,
-          emitDeclarationOnly: true,
-          noEmitOnError: true,
-          target: ts.ScriptTarget.ESNext,
-        },
+      depsExternal(),
+      typescript({
+        exclude: ['**/*.stories.tsx', '**/*.test.tsx'],
+        declaration: false,
+        declarationMap: false,
       }),
     ],
-    output: [
-      {
-        dir: 'dist',
-        format: 'esm',
-        preserveModules: true,
-        preserveModulesRoot: 'src',
+    output: {
+      dir: 'dist',
+      format: 'esm',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+      sourcemap: true,
+      // Preserves .ts file extenstion on css.ts files
+      entryFileNames({ name, facadeModuleId }) {
+        return facadeModuleId?.includes('css.ts')
+          ? `${name.replace('css', 'component-library.css')}.ts`
+          : `${name}.js`;
       },
-    ],
+      exports: 'named',
+    },
   },
-];
+  {
+    input: 'src/index.ts', // <--- I split `.css.ts` files into their own barrel/export
+    plugins: [dts(dtsConfig)],
+    output: {
+      dir: 'dist',
+      format: 'esm',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+    },
+  },
+  {
+    input: 'src/components/index.ts', // <-- React component barrel
+    plugins: [dts(dtsConfig)],
+    output: {
+      dir: 'dist',
+      format: 'esm',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+    },
+  },
+]);
