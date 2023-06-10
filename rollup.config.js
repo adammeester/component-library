@@ -20,11 +20,7 @@ export default defineConfig([
     plugins: [
       depsExternal(),
       typescript({
-        exclude: [
-          '**/*.stories.tsx',
-          '**/*.test.tsx',
-          '**/*component-library.css',
-        ],
+        exclude: ['**/*.stories.tsx', '**/*.test.tsx'],
         declaration: false,
         declarationMap: false,
       }),
