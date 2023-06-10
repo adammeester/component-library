@@ -16,7 +16,7 @@ const dtsConfig = {
 
 export default defineConfig([
   {
-    input: ['src/index.ts', 'src/components/index.ts'],
+    input: ['src/index.ts', 'src/components/index.ts', 'src/theme/index.ts'],
     plugins: [
       depsExternal(),
       typescript({

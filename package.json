@@ -2,7 +2,7 @@
   "author": "Adam Meester",
   "name": "@adammeester/component-library",
   "description": "Adam Meester's component library",
-  "version": "0.4.35",
+  "version": "0.4.36",
   "type": "module",
   "files": [
     "dist"
@@ -19,22 +19,9 @@
     "version:minor": "npm version minor && git push && git push --tags",
     "version:major": "npm version major && git push && git push --tags"
   },
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "module": "dist/index.js",
-  "types": "src/index.ts",
-  "exports": {
-    ".": {
-      "import": "./src/index.ts",
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
-    },
-    "./components": {
-      "import": "./src/components/index.ts",
-      "types": "./src/components/index.ts",
-      "default": "./src/components/index.ts"
-    },
-    "./package.json": "./package.json"
-  },
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/adammeester/component-library.git"
