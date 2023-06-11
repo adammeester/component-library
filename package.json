@@ -2,7 +2,7 @@
   "author": "Adam Meester",
   "name": "@adammeester/component-library",
   "description": "Adam Meester's component library",
-  "version": "0.4.50",
+  "version": "0.4.51",
   "type": "module",
   "files": [
     "src"
@@ -32,10 +32,9 @@
       "default": "./src/components.ts"
     },
     "./theme": {
-      "import": {
-        "default": "./src/theme"
-      },
-      "types": "./src/theme.ts"
+      "import": "./src/theme.ts",
+      "types": "./src/theme.ts",
+      "default": "./src/theme.ts"
     },
     "./keyframes": {
       "import": {
