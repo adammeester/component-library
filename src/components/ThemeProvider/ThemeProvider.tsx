@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { moreGGDarkTheme } from './Theme.css';
+import { moreGGDarkTheme } from '../../theme/Theme.css';
 
 export type ThemeProviderProps = {
   children: ReactNode;

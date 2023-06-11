@@ -66,16 +66,6 @@ export default defineConfig([
     },
   },
   {
-    input: 'src/theme/index.ts',
-    plugins: [dts(dtsConfig)],
-    output: {
-      dir: 'dist',
-      format: 'esm',
-      preserveModules: true,
-      preserveModulesRoot: 'src',
-    },
-  },
-  {
     input: 'src/keyframes/index.ts',
     plugins: [dts(dtsConfig)],
     output: {
