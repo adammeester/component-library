@@ -1,5 +1,4 @@
 export * from './Button';
-export * from './Card';
 export * from './ContentWrapper';
 export * from './FlareTag';
 export * from './Input';
