@@ -16,7 +16,12 @@ const dtsConfig = {
 
 export default defineConfig([
   {
-    input: ['src/index.ts', 'src/components/index.ts', 'src/theme/index.ts'],
+    input: [
+      'src/index.ts',
+      'src/components/index.ts',
+      'src/theme/index.ts',
+      'src/keyframes/index.ts',
+    ],
     plugins: [
       depsExternal(),
       typescript({
@@ -62,6 +67,16 @@ export default defineConfig([
   },
   {
     input: 'src/theme/index.ts',
+    plugins: [dts(dtsConfig)],
+    output: {
+      dir: 'dist',
+      format: 'esm',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+    },
+  },
+  {
+    input: 'src/keyframes/index.ts',
     plugins: [dts(dtsConfig)],
     output: {
       dir: 'dist',
