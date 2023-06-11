@@ -3,13 +3,13 @@ import dts from 'rollup-plugin-dts';
 import depsExternal from 'rollup-plugin-node-externals';
 import typescript from '@rollup/plugin-typescript';
 
-// I use some path aliasing, you can ignore this
 const dtsConfig = {
   compilerOptions: {
     baseUrl: '.',
     paths: {
-      '@themes': ['src/themes/themes.ts'],
+      '@theme': ['src/theme/theme.ts'],
       '@components': ['src/components.ts'],
+      '@keyframes': ['src/keyframes/keyframes.ts'],
     },
   },
 };
@@ -46,7 +46,7 @@ export default defineConfig([
     },
   },
   {
-    input: 'src/index.ts', // <--- I split `.css.ts` files into their own barrel/export
+    input: 'src/index.ts',
     plugins: [dts(dtsConfig)],
     output: {
       dir: 'dist',
@@ -56,7 +56,17 @@ export default defineConfig([
     },
   },
   {
-    input: 'src/components/index.ts', // <-- React component barrel
+    input: 'src/components/index.ts',
+    plugins: [dts(dtsConfig)],
+    output: {
+      dir: 'dist',
+      format: 'esm',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+    },
+  },
+  {
+    input: 'src/theme/index.ts',
     plugins: [dts(dtsConfig)],
     output: {
       dir: 'dist',
