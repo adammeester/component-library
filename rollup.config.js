@@ -36,7 +36,6 @@ export default defineConfig([
       preserveModules: true,
       preserveModulesRoot: 'src',
       sourcemap: true,
-      // Preserves .ts file extenstion on css.ts files
       entryFileNames({ name, facadeModuleId }) {
         return facadeModuleId?.includes('css.ts')
           ? `${name.replace('css', 'component-library.css')}.ts`
