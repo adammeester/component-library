@@ -2,7 +2,7 @@
   "author": "Adam Meester",
   "name": "@adammeester/component-library",
   "description": "Adam Meester's component library",
-  "version": "0.4.47",
+  "version": "0.4.48",
   "type": "module",
   "files": [
     "src"
@@ -33,7 +33,7 @@
     },
     "./theme": {
       "import": {
-        "default": "./src/theme/Theme.css"
+        "default": "./src/theme"
       },
       "types": "./src/theme.ts"
     },
